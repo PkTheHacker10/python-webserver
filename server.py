@@ -1,18 +1,32 @@
-#!/bin/python3
+#!/usr/bin/python3
+import os
 import socket
-
+    
 class file_handler:
+    def __init__(self):
+        self.root_dir='src'
+        self.available_docs=[]
+        
+    def get_available_docs(self):
+        files=os.listdir(self.root_dir)
+        for html_file in files:
+            if html_file.endswith(".html"):
+                self.available_docs.append(html_file)
+        return self.available_docs
+    
     def get_file_content(self, file):
         with open("src/"+file, 'r') as f:
             return f.read()
+        
 class socket_handler:
     def __init__(self):
-        self.host='172.30.16.116'
+        self.host='192.168.33.97'
         self.port=8080
+        
     def create_socket(self):
         sock=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.bind((self.host, self.port))
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        sock.bind((self.host, self.port))
         return sock
 
 class http_handler:
@@ -21,13 +35,7 @@ class http_handler:
         
     def get_requested_file(self, data):
         requested_file = data.split('\n')[0].split(' ')[1]
-        if requested_file == '/':
-            return 'index.html'
-        if requested_file.startswith('src'):
-            pass
-        if requested_file == 'favicon.ico':
-            pass
-        return requested_file[1:] 
+        return requested_file
     
     def get_request_method(self,data):
         return data.split('\n')[0].split(' ')[0]
@@ -35,8 +43,26 @@ class http_handler:
     def get_connected_host(self, data):
         return data.split('\n')[1].split(' ')[1]
     
-    def response(self,file):
-        return self.file_handler.get_file_content(file)
+    def http_handler(self,requested_data):
+        # http_handler Function
+        requested_doc=self.get_requested_file(requested_data)
+        if requested_doc == '/':
+            requested_doc ='index.html'
+            
+        requested_doc=requested_doc.split('/')[1]
+        
+        if requested_doc.startswith('src'):
+            requested_doc='404.html'
+            
+        if requested_doc == '/favicon.ico':
+            pass
+        
+        if requested_doc in self.file_handler.get_available_docs():
+            requested_doc_contents=self.file_handler.get_file_content(requested_doc)
+            return requested_doc_contents
+        else:
+            requested_doc_contents=self.file_handler.get_file_content('404.html')
+            return requested_doc_contents
 
 class webserver:
     def __init__(self):
@@ -51,19 +77,16 @@ class webserver:
         while True:
             try:
                 conn, addr = sock.accept()
-                # conn.sendall(self.http_handler.response('index.html').encode())
-                data=conn.recv(2048).decode()
-                
-                
-                requested_file=self.http_handler.get_requested_file(data)
-                requested_method=self.http_handler.get_request_method(data)
-                requested_host=self.http_handler.get_connected_host(data)
-                
-                
+                request_data=conn.recv(2048).decode()
+                requested_file=self.http_handler.get_requested_file(request_data)
+                requested_method=self.http_handler.get_request_method(request_data)
+                requested_host=self.http_handler.get_connected_host(request_data)       
                 if requested_file != 'favicon.ico':
                     print(f"Connected host: {requested_host} Requested file: {requested_file} Requested method :{requested_method}")
-                    conn.sendall(self.http_handler.response(requested_file).encode())
+                    requested_doc=self.http_handler.http_handler(request_data)
+                    conn.sendall(requested_doc.encode())
                 conn.close()
+                
             except KeyboardInterrupt:
                 print('\nServer shutting down...')
                 sock.close()
@@ -72,6 +95,6 @@ class webserver:
 def main():
     server = webserver()
     server.webserver_handler()  
-
+        
 if __name__ == '__main__':
     main()
