@@ -19,7 +19,6 @@ class FileHandlerClass:
         return self.available_docs
     
     def get_file_content(self, file):
-        print(f"file : {file}")
         with open("src/"+file, 'r') as f:
             return f.read()
      

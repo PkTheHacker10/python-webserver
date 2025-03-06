@@ -28,14 +28,11 @@ class HttpHandlerClass:
         requested_doc=self.get_requested_file(requested_data)
         if requested_doc == '/':
             requested_doc ='index.html'
-            
-        requested_doc=requested_doc.split('/')[1]
+        else:
+            requested_doc=requested_doc.split('/')[1]
         
         if requested_doc.startswith('src'):
             requested_doc='404.html'
-            
-        if requested_doc == '/favicon.ico':
-            pass
         
         if requested_doc in _file_handler.get_available_docs():
             requested_doc_contents=_file_handler.get_file_content(requested_doc)

@@ -30,9 +30,8 @@ class webserver:
                 requested_file=_http_handler.get_requested_file(request_data)
                 requested_method=_http_handler.get_request_method(request_data)
                 requested_host=_http_handler.get_connected_host(request_data)       
-                if requested_file != 'favicon.ico':
-                    print(f"Connected host: {requested_host.split(":")[0]} Requested file: {requested_file} Requested method :{requested_method}")
-                    conn.sendall(requested_doc.encode())
+                print(f"Connected host: {requested_host.split(":")[0]} Requested file: {requested_file} Requested method :{requested_method}")
+                conn.sendall(requested_doc.encode())
                 conn.close()
                 
             except KeyboardInterrupt:
