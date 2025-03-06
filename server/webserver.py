@@ -9,12 +9,13 @@ except ImportError as Ie:
     
 class webserver:
     def __init__(self):
-        # Gathering all classes from package.
+        # Gathering all classes from modules.
         self.socket_handler_class=socket_handler()
         self.http_handler_class=http_handler()
         self.file_handler_class=file_handler()
         
     def webserver_handler(self):
+        # Web server handler funtion to handle the web server.
         # Initializing all classes.
         _socket_handler=self.socket_handler_class()
         _http_handler=self.http_handler_class()
@@ -38,8 +39,11 @@ class webserver:
                 print('\nServer shutting down...')
                 sock.close()
                 break
+            except Exception as Ue:
+                print(f"Unexpected Error Occoured :{Ue}")
 
 def main():
+    # Main funtion to start the server.
     server = webserver()
     server.webserver_handler()  
     

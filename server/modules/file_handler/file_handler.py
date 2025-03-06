@@ -10,6 +10,8 @@ class FileHandlerClass:
         self.available_docs=[]
         
     def get_available_docs(self):
+        # Funtion to get all the files from the root dir.
+        # TODO: it only extracting .html files need to get all the sub dirs from the root dir. 
         files=os.listdir(self.root_dir)
         for html_file in files:
             if html_file.endswith(".html"):
@@ -17,6 +19,7 @@ class FileHandlerClass:
         return self.available_docs
     
     def get_file_content(self, file):
+        print(f"file : {file}")
         with open("src/"+file, 'r') as f:
             return f.read()
      

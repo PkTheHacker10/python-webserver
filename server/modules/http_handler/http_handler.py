@@ -5,16 +5,21 @@ except ImportError as Ie:
     exit(1) 
     
 class HttpHandlerClass:
+    # Class to handle http request and response.
+    # TODO : need to make a template for response before send back to the requested client.
     def __init__(self):
         self.file_handler=file_handler()     
            
     def get_requested_file(self,requested_data):
+        # Funtion to extract requested file from the client request
         return requested_data.split('\n')[0].split(' ')[1]
     
     def get_request_method(self,requested_data):
+        # Funtion to extract requested method from the client request
         return requested_data.split('\n')[0].split(' ')[0]
     
     def get_connected_host(self,requested_data):
+        # Funtion to extract requested host from the client request
         return requested_data.split('\n')[1].split(' ')[1]
     
     def http_handler(self,requested_data):

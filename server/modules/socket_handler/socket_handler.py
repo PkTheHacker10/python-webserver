@@ -5,7 +5,9 @@ except ImportError as Ie:
     exit(1)  
     
 class SocketHandlerClass:  
+    # Class to handle socket.
     def create_socket(self):
+        # Function to create a socket channel.
         HOST='192.168.33.97'
         PORT=8080
         sock=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
