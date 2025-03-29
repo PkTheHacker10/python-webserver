@@ -14,11 +14,19 @@ class FileHandlerClass:
         # TODO: it only extracting .html files need to get all the sub dirs from the root dir. 
         files=os.listdir(self.root_dir)
         for html_file in files:
-            if html_file.endswith(".html"):
+            if html_file.endswith(".html") or html_file.endswith(".jpg") or html_file.endswith(".css") or html_file.endswith(".php"):
                 self.available_docs.append(html_file)
         return self.available_docs
     
     def get_file_content(self, file):
-        with open("src/"+file, 'r') as f:
-            return f.read()
+        file_path=os.path.join(self.root_dir,file)
+        with open(file_path, 'rb') as opened_file:
+            content=opened_file.read()
+            try:
+                return content.decode("utf-8") 
+            except UnicodeDecodeError:
+                return content 
+            except Exception as ue:
+                print(f"Unexpected error [FileHandler] :{ue}")
+
      

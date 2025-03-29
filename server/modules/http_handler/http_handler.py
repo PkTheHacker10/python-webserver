@@ -14,13 +14,16 @@ class HttpHandlerClass:
         # Funtion to extract requested file from the client request
         return requested_data.split('\n')[0].split(' ')[1]
     
-    def get_request_method(self,requested_data):
+    def get_request_method_and_protocol(self,requested_data):
         # Funtion to extract requested method from the client request
-        return requested_data.split('\n')[0].split(' ')[0]
+        return requested_data.split('\n')[0]
     
     def get_connected_host(self,requested_data):
         # Funtion to extract requested host from the client request
         return requested_data.split('\n')[1].split(' ')[1]
+    
+    def get_user_agent(self,requested_data):
+        return requested_data.split('\n')[2]
     
     def http_handler(self,requested_data):
         # http_handler Function

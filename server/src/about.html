@@ -9,29 +9,59 @@ Content-Type: text/html
     <title>About</title>
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
             text-align: center;
-            padding: 50px;
-            background-color: #f8f8f8;
         }
-        h1 {
-            font-size: 48px;
+        header {
+            background: #333;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
         }
-        li{
-            text-align: center;
-            padding: 0px;
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            margin-top: 20px;
+            padding: 20px;
+            padding-top:50px;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            text-decoration: none;
+            color: white;
+            background: #03366d;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background: #70b3fa;
         }
     </style>
 </head>
 <body>
-    <h1>This is a test python web server</h1>
-    <h2>Hii from pk</h2>
-    <br>
-    <h2><u>About Myself</u></h2>
-    <h3>Im a programmer</h3>
-    <h3>Im a penetration tester :)</h3>
-    <h4><a href="index.html">Home</a></h4>
-    <h4><a href="projects.html">My projects</a></h4>
+    <header>About Me :)</header>
+    <div class="container">
+        <img src="profile.jpg" alt="Profile Picture" class="profile-img">
+        <h2>PevinKumar A</h2>
+        <p>| Cyber security enthusiast | </p>
+        <p>| Cyber security researcher | Programmer | THM Top 2% | Aspiring Red Teamer |</p>
+        
+        <h3>About Me</h3>
+        <p>Hey! I'm Pevin, a highly passionate cybersecurity enthusiast currently pursuing an UG in Cyber Security. With a strong focus on ethical hacking, I'm dedicated to learning and mastering the latest techniques in network security, vulnerability assessment, and penetration testing.</p>
+        <p> Driven by a deep curiosity for how systems operate and a desire to protect them, I am committed to building a strong foundation in cybersecurity while actively engaging in hands-on projects and continuous learning. Eager to apply my growing knowledge , I am focused on contributing to a safer digital world as I progress in my academic and professional journey </p>
+    </div>
 
 </body>
 </html>
